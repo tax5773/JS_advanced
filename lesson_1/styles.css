@@ -1,0 +1,30 @@
+header {
+     border-bottom: 1px solid;
+     padding: 15px 50px;
+     text-align: right;
+}
+
+img {
+     width: 150px;
+}
+
+.goods-list {
+     display: flex;
+     width: 100%;
+     justify-content: space-around;
+     padding: 50px 0;
+
+}
+
+.goods-item{
+     border: 1px solid;
+     text-align: center;
+     padding: 50px;
+}
+
+.cart-button {
+     width: 100px;
+     height: 30px;
+     border-radius: 15px ;
+     margin-left: auto;
+}
