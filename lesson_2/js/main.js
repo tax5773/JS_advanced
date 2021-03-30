@@ -21,8 +21,12 @@ class ProductsList{
 //            block.innerHTML += productObj.render();
         }
     }
-    pricesAllSum(){
-        return this.goods.forEach( good => )
+    // метод вычисляющий сумму всех ценников всех товаров.
+
+    sumAllPrices(){
+        let totalPrices = 0;
+        this.goods.forEach( good => totalPrices += good.price);
+        return totalPrices;
     }
 }
 
@@ -48,6 +52,7 @@ class ProductItem{
 
 let list = new ProductsList();
 list.render();
+console.log(list.sumAllPrices());
 
 
 
