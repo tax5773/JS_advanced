@@ -147,7 +147,6 @@ class cart{
     getSumma(){
     return _.reduce(cartData, function(sum, item) {return sum + item.count * item.price}, 0);
     }
-
 }
 
 
