@@ -25,6 +25,25 @@
 
 let cartData = [];  // данные корзины - массив объектов
 
+class cartItem{
+    constructor(product, img = 'https://placehold.it/200x150'){
+        this.title = product.title;
+        this.price = product.price;
+        this.id = product.id;
+        this.img = img;
+
+    }
+
+    render(){
+        return `<div class="product-item" data-id="${this.id}">
+                <img src="${this.img}" alt="Some img">
+                <h3>${this.title}</h3>
+                <p>${this.price}</p>
+                <button class="buy-btn">Купить</button>
+            </div>`
+    }
+}
+
 class cart{
     constructor(container = '.products'){
         this.container = container;
@@ -33,7 +52,16 @@ class cart{
     }
 
     cartData(){
-        // тут должны быть данные с сервера. Смутно представляю пока
+        // тут должны быть данные с сервера. Смутно представляю пока, но примерно из cartData переходят значения в this.goods
+
+    }
+    // вывод товаров из корзины
+    render() {
+        const block = document.querySelector(this.container);
+        for(let product of this.goods){
+            const productObj = new cartItem(product);
+            block.insertAdjacentHTML('beforeend',productObj.render())
+        }
     }
 
     // Получаем данные
