@@ -23,14 +23,16 @@
 // 10. getCountAll - возвращаем число всех товаров корзины
 // 11. getSumma - возвращаем общую сумму заказа
 
-let cartData = [];  // данные корзины - массив объектов
 
-class cartItem{
+// const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
+class CartItem{
     constructor(product, img = 'https://placehold.it/200x150'){
-        this.title = product.title;
+        this.title = product.product_name;
         this.price = product.price;
-        this.id = product.id;
+        this.id = product.id_product;
         this.img = img;
+        this.count = product.quantity;
 
     }
 
@@ -44,22 +46,32 @@ class cartItem{
     }
 }
 
-class cart{
-    constructor(container = '.products'){
+class CartList{
+    constructor(container = '.modal-content'){
         this.container = container;
         this.goods = [];
-        this.cartData();
+        this.allProducts = [];
+        this._cartData()
+            .then(data => {
+                this.goods = [...data.contents];
+                this.render()
+            });
     }
 
-    cartData(){
-        // тут должны быть данные с сервера. Смутно представляю пока, но примерно из cartData переходят значения в this.goods
+    _cartData(){
+
+        return fetch(`${API}/getBasket.json`)
+            .then(result => result.json())
+            .catch(error => {
+                console.log(error);
+            })
 
     }
     // вывод товаров из корзины
     render() {
         const block = document.querySelector(this.container);
         for(let product of this.goods){
-            const productObj = new cartItem(product);
+            const productObj = new CartItem(product);
             block.insertAdjacentHTML('beforeend',productObj.render())
         }
     }
@@ -149,5 +161,6 @@ class cart{
     }
 }
 
+let cart = new CartList();
 
 
