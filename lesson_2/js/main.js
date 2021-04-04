@@ -24,9 +24,7 @@ class ProductsList{
     // метод вычисляющий сумму всех ценников всех товаров.
 
     sumAllPrices(){
-        let totalPrices = 0;
-        this.goods.forEach( good => totalPrices += good.price);
-        return totalPrices;
+        return this.goods.reduce(function(sum, item) {return sum + item.price}, 0);
     }
 }
 

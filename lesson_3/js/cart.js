@@ -41,7 +41,11 @@ class CartItem{
                 <img src="${this.img}" alt="Some img">
                 <h3>${this.title}</h3>
                 <p>${this.price}</p>
-                <button class="buy-btn">Купить</button>
+                <div class="cartItem-count__wrap">
+                    <span class="cartCount-btn">-</span>
+                    <span class="cartCount">${this.count}</span>
+                    <span class="cartCount-btn">+</span>
+                </div>
             </div>`
     }
 }
@@ -49,16 +53,16 @@ class CartItem{
 class CartList{
     constructor(container = '.modal-content'){
         this.container = container;
-        this.goods = [];
+        this.cartData = [];
         this.allProducts = [];
-        this._cartData()
+        this._fetchCartData()
             .then(data => {
-                this.goods = [...data.contents];
+                this.cartData = [...data.contents];
                 this.render()
             });
     }
 
-    _cartData(){
+    _fetchCartData(){
 
         return fetch(`${API}/getBasket.json`)
             .then(result => result.json())
@@ -70,7 +74,7 @@ class CartList{
     // вывод товаров из корзины
     render() {
         const block = document.querySelector(this.container);
-        for(let product of this.goods){
+        for(let product of this.cartData){
             const productObj = new CartItem(product);
             block.insertAdjacentHTML('beforeend',productObj.render())
         }
